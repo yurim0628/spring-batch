@@ -1,8 +1,12 @@
 package com.example.config;
 
 import com.example.dto.BranchDto;
+import com.example.dto.CompanyDto;
+import com.example.dto.EmployeeDto;
 import com.example.dto.MeetingRoomDto;
 import com.example.entity.Branch;
+import com.example.entity.Company;
+import com.example.entity.Employee;
 import com.example.entity.MeetingRoom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -27,11 +31,15 @@ public class CsvFileReaderJobConfig {
     public Job csvFileReaderJob(
             JobRepository jobRepository,
             Step branchesCsvFileReadStep,
-            Step meetingRoomsCsvFileReadStep
+            Step meetingRoomsCsvFileReadStep,
+            Step companiesCsvFileReadStep,
+            Step employeesCsvFileReadStep
     ) {
         return new JobBuilder("csvFileReaderJob", jobRepository)
                 .start(branchesCsvFileReadStep)
                 .next(meetingRoomsCsvFileReadStep)
+                .next(companiesCsvFileReadStep)
+                .next(employeesCsvFileReadStep)
                 .build();
     }
 
@@ -64,6 +72,38 @@ public class CsvFileReaderJobConfig {
                 .reader(meetingRoomsReader)
                 .processor(meetingRoomsProcessor)
                 .writer(meetingRoomsWriter)
+                .build();
+    }
+
+    @Bean
+    public Step companiesCsvFileReadStep(
+            JobRepository jobRepository,
+            PlatformTransactionManager transactionManager,
+            FlatFileItemReader<CompanyDto> companiesReader,
+            ItemProcessor<CompanyDto, Company> companiesProcessor,
+            ItemWriter<Company> companiesWriter
+    ) {
+        return new StepBuilder("meetingRoomsCsvFileReadStep", jobRepository)
+                .<CompanyDto, Company>chunk(CHUNK_SIZE, transactionManager)
+                .reader(companiesReader)
+                .processor(companiesProcessor)
+                .writer(companiesWriter)
+                .build();
+    }
+
+    @Bean
+    public Step employeesCsvFileReadStep(
+            JobRepository jobRepository,
+            PlatformTransactionManager transactionManager,
+            FlatFileItemReader<EmployeeDto> employeesReader,
+            ItemProcessor<EmployeeDto, Employee> employeesProcessor,
+            ItemWriter<Employee> employeesWriter
+    ) {
+        return new StepBuilder("employeesCsvFileReadStep", jobRepository)
+                .<EmployeeDto, Employee>chunk(CHUNK_SIZE, transactionManager)
+                .reader(employeesReader)
+                .processor(employeesProcessor)
+                .writer(employeesWriter)
                 .build();
     }
 }
