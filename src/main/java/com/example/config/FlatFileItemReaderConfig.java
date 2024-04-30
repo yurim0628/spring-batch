@@ -23,7 +23,7 @@ public class FlatFileItemReaderConfig {
 
     private static final String[] BRANCH_FIELD_NAMES = {"branchName", "address", "floor", "operatingHours", "capacity", "studioCount", "meetingRoomCount"};
     private static final String[] MEETING_ROOM_FIELD_NAMES = {"branchName", "location", "roomNumber", "capacity", "hasProjector", "canVideoConference"};
-    static final String[] COMPANY_FIELD_NAMES = {"companyName", "business", "headCount", "contractStartDate", "contractEndDate", "representativeName", "representativeContact", "contractManagerName", "contractManagerContact"};
+    private static final String[] COMPANY_FIELD_NAMES = {"companyName", "business", "headCount", "contractStartDate", "contractEndDate", "representativeName", "representativeContact", "contractManagerName", "contractManagerContact"};
     private static final String[] EMPLOYEE_FIELD_NAMES = {"loginId", "name", "nickname", "company", "contact", "address", "gender", "age", "email"};
 
 
