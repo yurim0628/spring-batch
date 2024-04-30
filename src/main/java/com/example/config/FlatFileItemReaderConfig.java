@@ -16,15 +16,15 @@ import org.springframework.core.io.ClassPathResource;
 @Configuration
 public class FlatFileItemReaderConfig {
 
-    private static final String BRANCHES_RESOURCE_PATH = "csv/branches.csv";
-    private static final String MEETING_ROOMS_RESOURCE_PATH = "csv/meeting-rooms.csv";
-    private static final String COMPANIES_RESOURCE_PATH = "csv/companies.csv";
-    private static final String EMPLOYEES_RESOURCE_PATH = "csv/employees.csv";
+    private final String BRANCHES_RESOURCE_PATH = "csv/branches.csv";
+    private final String MEETING_ROOMS_RESOURCE_PATH = "csv/meeting-rooms.csv";
+    private final String COMPANIES_RESOURCE_PATH = "csv/companies.csv";
+    private final String EMPLOYEES_RESOURCE_PATH = "csv/employees.csv";
 
-    private static final String[] BRANCH_FIELD_NAMES = {"branchName", "address", "floor", "operatingHours", "capacity", "studioCount", "meetingRoomCount"};
-    private static final String[] MEETING_ROOM_FIELD_NAMES = {"branchName", "location", "roomNumber", "capacity", "hasProjector", "canVideoConference"};
-    static final String[] COMPANY_FIELD_NAMES = {"companyName", "business", "headCount", "contractStartDate", "contractEndDate", "representativeName", "representativeContact", "contractManagerName", "contractManagerContact"};
-    private static final String[] EMPLOYEE_FIELD_NAMES = {"loginId", "name", "nickname", "company", "contact", "address", "gender", "age", "email"};
+    private final String[] BRANCH_FIELD_NAMES = {"branchName", "address", "floor", "operatingHours", "capacity", "studioCount", "meetingRoomCount"};
+    private final String[] MEETING_ROOM_FIELD_NAMES = {"branchName", "location", "roomNumber", "capacity", "hasProjector", "canVideoConference"};
+    private final String[] COMPANY_FIELD_NAMES = {"companyName", "business", "headCount", "contractStartDate", "contractEndDate", "representativeName", "representativeContact", "contractManagerName", "contractManagerContact"};
+    private final String[] EMPLOYEE_FIELD_NAMES = {"loginId", "name", "nickname", "company", "contact", "address", "gender", "age", "email"};
 
 
     private <T> FlatFileItemReader<T> createFlatFileItemReader(String resourcePath, String[] fieldNames, Class<T> targetType) {
