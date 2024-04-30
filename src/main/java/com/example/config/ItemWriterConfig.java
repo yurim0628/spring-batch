@@ -1,8 +1,12 @@
 package com.example.config;
 
 import com.example.entity.Branch;
+import com.example.entity.Company;
+import com.example.entity.Employee;
 import com.example.entity.MeetingRoom;
 import com.example.repository.BranchRepository;
+import com.example.repository.CompanyRepository;
+import com.example.repository.EmployeeRepository;
 import com.example.repository.MeetingRoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemWriter;
@@ -16,6 +20,8 @@ public class ItemWriterConfig {
 
     private final BranchRepository branchRepository;
     private final MeetingRoomRepository meetingRoomRepository;
+    private final CompanyRepository companyRepository;
+    private final EmployeeRepository employeeRepository;
 
     @Bean
     @Transactional
@@ -33,6 +39,26 @@ public class ItemWriterConfig {
         return meetingRooms -> {
             for (MeetingRoom meetingRoom : meetingRooms) {
                 meetingRoomRepository.save(meetingRoom);
+            }
+        };
+    }
+
+    @Bean
+    @Transactional
+    public ItemWriter<Company> companiesWriter() {
+        return companies -> {
+            for (Company company : companies) {
+                companyRepository.save(company);
+            }
+        };
+    }
+
+    @Bean
+    @Transactional
+    public ItemWriter<Employee> employeesWriter() {
+        return employees -> {
+            for (Employee employee : employees) {
+                employeeRepository.save(employee);
             }
         };
     }
